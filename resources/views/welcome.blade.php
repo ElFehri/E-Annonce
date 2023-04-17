@@ -57,25 +57,12 @@
         <main>
                 <h1 class="my-24 font-bold font-mono text-7xl text-center bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-blue-500"> Bienvenue au E-Annonce de <br> FSM</h1>
             
-                <ul class="grid grid-cols-3 grid-flow-row gap-x-1 justify-items-center ">
-                <li class="text-1xl font-serif"><a href="{{ route('login') }}" class="no-underline">
-                    <img src="{{asset('/images/responsable.png')}}" alt="Responsable" class="border-4 border-black ml-4 rounded-full w-28 h-28"><br>
-                    <p class="text-black text-center text-3xl italic">Responsable</p>
-                </a></li>
-                <li class="text-1xl font-serif"><a href="{{ route('login') }}" class="no-underline">
-                    <img src="{{asset('/images/admin.png')}}" alt="Admin" class="border-4 border-black rounded-full w-28 h-28"><br>
-                    <p class="text-black text-center text-3xl italic">Admin</p>
-                </a></li>
-                <li class="text-1xl font-serif"><a href="{{ route('login') }}" class="no-underline">
-                    <img src="{{asset('/images/members.png')}}" alt="Member" class="border-4 border-black rounded-full w-28 h-28"><br>
-                    <p class="text-black text-center text-3xl italic">Member</p>
-                </a></li>
-            </ul>
+                
         </main>
     </div>
 
     <footer class=" bg-black w-full fixed bottom-0">
-        <p class="mt-2 font-bold text-md text-center text-white">FSM-UMI@copyright</p>
+        <p class="mt-2  text-md text-center text-white">FSM-UMI@copyright</p>
     </footer>
 </body>
 </html>

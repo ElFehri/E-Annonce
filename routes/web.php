@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\DashPublications;
-use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,7 @@ Route::get('/elements', function () {
 
 Route::resource('annonces', AnnonceController::class);
 Route::resource('information', InformationController::class);
+Route::resource('users', UserController::class);
 
 Auth::routes();
 

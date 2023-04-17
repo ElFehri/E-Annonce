@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 ">
-            <div class="card mt-8">
+            <div class="card mt-16">
                 <div class="card-header text-center font-bold text-3xl bg-slate-900 ">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -32,6 +32,20 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="CIN" class="col-md-4 col-form-label text-md-end font-bold">{{ __('CIN') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="CIN" type="CIN" class="form-control @error('CIN') is-invalid @enderror" name="CIN" required >
+
+                                @error('CIN')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

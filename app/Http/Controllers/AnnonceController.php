@@ -30,7 +30,7 @@ class AnnonceController extends Controller
         $user = new User;
         $publication = new Publication;
         $publication->type = "Annonce";
-        $publication->user_id = $user->id;
+        $publication->user_id = 1 /* $user->id */;
         $publication->start_date = $request->input('start_date');
         $publication->end_date = $request->input('end_date');
         $publication->save();
@@ -41,7 +41,7 @@ class AnnonceController extends Controller
         $annonce->pub_id = $publication->id;
         $annonce->save();
 
-        return redirect()->route('createAnnocne');
+        return view('annonces.create') /* redirect()->route('createAnnocne') */;
     }
 
     public function show($pub_id)
