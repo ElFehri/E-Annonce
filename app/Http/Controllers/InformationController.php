@@ -7,6 +7,8 @@ use App\Models\Information;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\User;
 use PhpParser\Node\Stmt\If_;
 
@@ -30,7 +32,7 @@ class InformationController extends Controller
 
     public function store(Request $request)
     {
-        $user = new User;
+        $user = Auth::user();
         $publication = new Publication;
         $publication->type = "Information";
         $publication->user_id = $user->id;

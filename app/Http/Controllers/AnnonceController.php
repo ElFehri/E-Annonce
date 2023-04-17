@@ -6,6 +6,7 @@ use App\Models\Annonce;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class AnnonceController extends Controller
@@ -27,10 +28,10 @@ class AnnonceController extends Controller
 
     public function store(Request $request)
     {
-        $user = new User;
+        $user = Auth::user();
         $publication = new Publication;
         $publication->type = "Annonce";
-        $publication->user_id = 1 /* $user->id */;
+        $publication->user_id = $user->id;
         $publication->start_date = $request->input('start_date');
         $publication->end_date = $request->input('end_date');
         $publication->save();
@@ -41,8 +42,9 @@ class AnnonceController extends Controller
         $annonce->pub_id = $publication->id;
         $annonce->save();
 
-        return view('annonces.create') /* redirect()->route('createAnnocne') */;
+        return view('annonces.create');
     }
+
 
     public function show($pub_id)
     {
