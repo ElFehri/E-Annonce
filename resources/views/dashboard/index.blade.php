@@ -6,7 +6,7 @@
 <div class="mx-4 my-2 shadow-lg rounded-md bg-white w-auto px-4 py-2 ">
     
     <div class="flex flex-wrap justify-between ">
-        <div class="font-bold">Creator name</div>
+        <div class="font-bold">{{ $annonce->user_name }}</div>
         <div class="font-bold">{{$annonce->created_at }}</div>
         <form action="{{route('annonces.destroy', $annonce->pub_id)}}">
             @csrf
@@ -34,7 +34,7 @@
 @foreach ($information as $info)
 <div class="mx-4 my-2 shadow-lg rounded-md bg-white w-auto px-4 py-2 ">
     <div class="flex flex-wrap justify-between ">
-        <div class="font-bold">Creator name</div>
+        <div class="font-bold">{{ $info->user_name }}</div>
         <div class="font-bold">{{ $info->created_at }}</div>
         <div class="font-bold">
             <form action="{{route('information.destroy', $info->pub_id)}}">
