@@ -22,14 +22,16 @@ use App\Http\Controllers\DashPublications;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//for delete
 Route::get('/elements', function () {
     return view('elements');
 });
 
 
-Route::resource('annonces', AnnonceController::class);
-Route::resource('information', InformationController::class);
-Route::resource('users', UserController::class);
+/* Route::resource('annonces', AnnonceController::class);
+Route::resource('information', InformationController::class);*/
+Route::resource('users', UserController::class); 
 
 Auth::routes();
 

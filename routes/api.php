@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //React routes......................................................
-Route::get('/api/users', 'UserController@index');
+//Route::get('/api/users', UserController::class);
+Route::apiResource('/api/users', UserController::class);

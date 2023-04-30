@@ -1,6 +1,6 @@
 @extends('home')
 @section('pubs')
-<div class=""><h1 class="text-center font-bold text-sky-800 mt-8">Annonces encore</h1></div>
+<div class=""><h1 class="text-center font-bold mt-8">Annonces encore</h1></div>
 @if (count($annonces)>0)
 @foreach ($annonces as $annonce)     
 <div class="mx-4 my-2 shadow-lg rounded-md bg-white w-auto px-4 py-2 ">
@@ -28,7 +28,7 @@
     <div class="bg-red-200 py-4 m-8 rounded-lg font-bold text-center">Pas d'annonce disponible aujourd'hui</div>
 @endif
 
-<div class=""><h1 class="text-center font-bold text-sky-800 mt-12">Information encore</h1></div>
+<div class=""><h1 class="text-center font-bold mt-12">Information encore</h1></div>
 
 @if (count($information)>0)
 @foreach ($information as $info)

@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('users.usersList', compact('users'));
+         //response()->json($users);
     }
 
     /**
