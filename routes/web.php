@@ -56,3 +56,11 @@ Route::get('/information/create', [InformationController::class, 'create'])->nam
 //apres login
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 */
+
+Auth::routes();
+
+Route::get('/laravel-login', function () {
+    return view('auth.login');
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
