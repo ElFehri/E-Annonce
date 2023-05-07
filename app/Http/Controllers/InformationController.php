@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annonce;
+
 use App\Models\Information;
 use App\Models\Publication;
 use Illuminate\Http\Request;
@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use Error;
 use PhpParser\Node\Stmt\If_;
 
 class InformationController extends Controller
@@ -21,31 +22,31 @@ class InformationController extends Controller
             ->where('publications.type', '=', 'Information')
             ->get();
         
-        return view('information.index', compact('information'));
+        return response()->json(['information'=> $information]);
     }
 
-
-    public function create()
-    {
-        return view('information.create');
-    }
 
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $publication = new Publication;
-        $publication->type = "Information";
-        $publication->user_id = $user->id;
-        $publication->start_date = $request->input('start_date');
-        $publication->end_date = $request->input('end_date');
-        $publication->save();
+        try {
+            $user = Auth::user();
+            $publication = new Publication;
+            $publication->type = "Information";
+            $publication->user_id = $user->id;
+            $publication->start_date = $request->input('start_date');
+            $publication->end_date = $request->input('end_date');
+            $publication->save();
 
-        $information = new Information;
-        $information->content = $request->input('content');
-        $information->pub_id = $publication->id;
-        $information->save();
+            $information = new Information;
+            $information->content = $request->input('content');
+            $information->pub_id = $publication->id;
+            $information->save();
 
-        return redirect()->route('createInformation');
+            return response()->json(['message'=> 'Information created successfuly']);
+
+        } catch (Error $e) {
+            return response()->json(['error'=> $e]);
+        }
     }
 
     public function show($pub_id)
@@ -53,36 +54,41 @@ class InformationController extends Controller
         $information = Information::where('information.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
     
-        return view('information.show', compact('information', 'publication'));
+        return response()->json(['information'=>$information, 'publication'=>$publication]);
     }
 
-    public function edit($pub_id)
+    /* public function edit($pub_id)
     {
         $information = Information::where('information.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
         return view('information.edit', compact('information', 'publication'));
-    }
+    } */
 
     public function update(Request $request, Information $information)
     {
-        $publication = Publication::find($information->pub_id);
-        $publication->start_date = $request->input('start_date');
-        $publication->end_date = $request->input('end_date');
-        $publication->save();
+        try{
+            $publication = Publication::find($information->pub_id);
+            $publication->start_date = $request->input('start_date');
+            $publication->end_date = $request->input('end_date');
+            $publication->save();
 
-        $information->content = $request->input('content');
-        $information->save();
+            $information->content = $request->input('content');
+            $information->save();
 
-        return redirect()->route('information.index');
+            return response()->json(['message'=> 'Information updated successfuly']);
+
+        } catch (Error $e) {
+            return response()->json(['error'=> $e]);
+        }
     }
 
     public function destroy($pub_id)
     {
-        $information = Information::where('information.pub_id', $pub_id)->first();
+        /* $information = Information::where('information.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
         $publication->delete();
         $information->delete();
 
-        return redirect()->route('information.index');
+        return redirect()->route('information.index'); */
     }
 }
