@@ -11,16 +11,6 @@ use App\Http\Controllers\DashPublications;
 use App\Http\Middleware\CheckUserRole;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,8 +21,8 @@ Route::get('/elements', function () {
 });
 
 
-/* Route::resource('annonces', AnnonceController::class);
-Route::resource('information', InformationController::class);*/
+ Route::resource('annonces', AnnonceController::class);
+Route::resource('information', InformationController::class);
 Route::resource('users', UserController::class); 
 
 Auth::routes();
@@ -40,11 +30,18 @@ Auth::routes();
 //Route::get('/home/dashboard', [DashPublications::class, 'toDash'])->name("toDash");
 
 //routing using CheckUserRole middelware.
-Route::group([['prefix' => 'user', 'middleware' => 'CheckUserRole']], function(){
-    Route::get('/admin/dashboard',       [UserController::class, "adminDash"]);
-    Route::get('/responsable/dashboard', [UserController::class, "respDash"]);
-    Route::get('/member/dashboard',      [UserController::class, "memberDash"]);
+Route::middleware(['auth', 'CheckUserRole'])->group(function () {
+    // Member routes
+    Route::get('/member/dashboard', [UserController::class, 'memberDashboard']);
+
+    // Admin routes
+    Route::get('/admin/dashboard', [UserController::class, 'adminDashboard']);
+    
+    // Responsible routes
+    Route::get('/responsible/dashboard', [UserController::class, 'respDashboard']);
+    
 });
+
 
 //route de l'ecran de test .
 Route::get('/home/test',[DashPublications::class, 'allPublications'] );
@@ -58,5 +55,5 @@ Route::get('/information/create', [InformationController::class, 'create'])->nam
 
 //apres login
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+*/
 

@@ -11,9 +11,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.usersList', compact('users'));
+        //$users = User::all();
+        //return view('users.usersList', compact('users'));
          //response()->json($users);
+         return "<h1> Hello react </h1>";
     }
 
     /**
