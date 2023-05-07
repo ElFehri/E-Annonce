@@ -18,18 +18,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm(Request $request)
-    {
-        if ($request->wantsJson()) {
-            return response()->json(['view' => 'login']);
-        }
-        return view('auth.login');
-    }
+   
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password', 'CIN');
-
+        
+        header('Access-Control-Allow-Origin: *');
         if (Auth::attempt($credentials)) {
             return response()->json(['success' => true]);
         } else {

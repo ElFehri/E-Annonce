@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +8,7 @@ function Login() {
   const [CIN, setCin] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [errors, setErrors] = useState([]);
+ 
 
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ function Login() {
         navigate('/home');
       })
       .catch(error => {
-        setErrors(error.response.data.errors);
+        console.log('email or password not correct!!');
       });
   } 
 
@@ -108,21 +109,10 @@ function Login() {
         </div>
 
         <div className="text-center">
-          <a href="/password/reset" className="text-blue-500">
+          <Link to={'/reset/password'} className="text-blue-500">
             Forgot Your Password?
-          </a>
+          </Link>
         </div>
-
-        {errors && errors.length > 0 &&
-          <div className="form-group row mt-2">
-            <div className="col-md-6 offset-md-4">
-              {errors.map((error, index) => (
-                <p key={index} className="text-danger">{error}</p>
-              ))}
-            </div>
-          </div>
-        }
-
       </form>
     </div>
   </div>

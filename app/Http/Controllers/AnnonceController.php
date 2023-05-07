@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Error;
 
 class AnnonceController extends Controller
 {
@@ -18,31 +19,35 @@ class AnnonceController extends Controller
             ->where('publications.type', '=', 'Annonce')
             ->get();
 
-        return view('annonces.index', compact('annonces'));
+        return response()->json(['annonces'=> $annonces]);
     }
 
-    public function create()
+   /*  public function create()
     {
         return view('annonces.create');
-    }
+    } */
 
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $publication = new Publication;
-        $publication->type = "Annonce";
-        $publication->user_id = $user->id;
-        $publication->start_date = $request->input('start_date');
-        $publication->end_date = $request->input('end_date');
-        $publication->save();
+        try {
+            $user = Auth::user();
+            $publication = new Publication;
+            $publication->type = "Annonce";
+            $publication->user_id = $user->id;
+            $publication->start_date = $request->input('start_date');
+            $publication->end_date = $request->input('end_date');
+            $publication->save();
 
-        $annonce = new Annonce;
-        $annonce->title = $request->input('title');
-        $annonce->content = $request->input('content');
-        $annonce->pub_id = $publication->id;
-        $annonce->save();
+            $annonce = new Annonce;
+            $annonce->title = $request->input('title');
+            $annonce->content = $request->input('content');
+            $annonce->pub_id = $publication->id;
+            $annonce->save();
 
-        return view('annonces.create');
+            return response()->json(['message'=> 'Announcement created successfuly']);
+        } catch (Error $e) {
+            return response()->json(['error'=> $e]);
+        }
     }
 
 
@@ -51,7 +56,7 @@ class AnnonceController extends Controller
         $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
 
-        return view('annonces.show', compact('annonce','publication'));
+        return response()->json(['annonce'=>$annonce, 'publication'=>$publication]);
     }
 
     public function edit($pub_id)
@@ -64,25 +69,29 @@ class AnnonceController extends Controller
 
     public function update(Request $request, Annonce $annonce)
     {
-        $publication = Publication::find($annonce->pub_id);
-        $publication->start_date = $request->input('start_date');
-        $publication->end_date = $request->input('end_date');
-        $publication->save();
+        try{
+            $publication = Publication::find($annonce->pub_id);
+            $publication->start_date = $request->input('start_date');
+            $publication->end_date = $request->input('end_date');
+            $publication->save();
 
-        $annonce->content = $request->input('content');
-        $annonce->title = $request->input('title');
-        $annonce->save();
+            $annonce->content = $request->input('content');
+            $annonce->title = $request->input('title');
+            $annonce->save();
 
-        return redirect()->route('toDash');
+            return response()->json(['message'=> 'Announcement updated successfuly']);
+        } catch (Error $e) {
+            return response()->json(['error'=> $e]);
+        }
     }
 
     public function destroy($pub_id)
     {
-        $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
+        /* $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
         $publication->delete();
         $annonce->delete();
 
-        return redirect()->route('annonces.index');
+        return redirect()->route('annonces.index'); */
     }
 }
