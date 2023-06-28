@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^37.0.1",
-        "@headlessui/react": "^1.7.14",
+        "@headlessui/react": "^1.7.15",
         "@heroicons/react": "^2.0.17"
     }
 }
